@@ -63,6 +63,26 @@ return [
             ]) : [],
         ],
 
+        'mysqlold' => [
+            'driver' => 'mysql',
+            'url' => env('OLD_DB_URL'),
+            'host' => env('OLD_DB_HOST', '127.0.0.1'),
+            'port' => env('OLD_DB_PORT', '3307'),
+            'database' => env('OLD_DB_DATABASE', 'laravel'),
+            'username' => env('OLD_DB_USERNAME', 'root'),
+            'password' => env('OLD_DB_PASSWORD', ''),
+            'unix_socket' => env('OLD_DB_SOCKET', ''),
+            'charset' => env('DB_CHARSET', 'utf8mb4'),
+            'collation' => env('OLD_DB_COLLATION', 'utf8mb4_unicode_ci'),
+            'prefix' => '',
+            'prefix_indexes' => true,
+            'strict' => true,
+            'engine' => null,
+            'options' => extension_loaded('pdo_mysql') ? array_filter([
+                PDO::MYSQL_ATTR_SSL_CA => env('OLD_MYSQL_ATTR_SSL_CA'),
+            ]) : [],
+        ],
+
         'mariadb' => [
             'driver' => 'mariadb',
             'url' => env('DB_URL'),
@@ -148,7 +168,7 @@ return [
 
         'options' => [
             'cluster' => env('REDIS_CLUSTER', 'redis'),
-            'prefix' => env('REDIS_PREFIX', Str::slug((string) env('APP_NAME', 'laravel')).'-database-'),
+            'prefix' => env('REDIS_PREFIX', Str::slug((string) env('APP_NAME', 'laravel')) . '-database-'),
             'persistent' => env('REDIS_PERSISTENT', false),
         ],
 
