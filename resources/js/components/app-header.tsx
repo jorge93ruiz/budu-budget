@@ -30,9 +30,10 @@ import { UserMenuContent } from '@/components/user-menu-content';
 import { useInitials } from '@/hooks/use-initials';
 import { cn, isSameUrl, resolveUrl } from '@/lib/utils';
 import { dashboard } from '@/routes';
+import entries from '@/routes/entries';
 import { type BreadcrumbItem, type NavItem, type SharedData } from '@/types';
 import { Link, usePage } from '@inertiajs/react';
-import { BookOpen, Folder, LayoutGrid, Menu, Search } from 'lucide-react';
+import { BookOpen, Folder, Menu, Search } from 'lucide-react';
 import AppLogo from './app-logo';
 import AppLogoIcon from './app-logo-icon';
 
@@ -40,7 +41,10 @@ const mainNavItems: NavItem[] = [
     {
         title: 'Dashboard',
         href: dashboard(),
-        icon: LayoutGrid,
+    },
+    {
+        title: 'Entries',
+        href: entries.index(),
     },
 ];
 
@@ -58,7 +62,7 @@ const rightNavItems: NavItem[] = [
 ];
 
 const activeItemStyles =
-    'text-neutral-900 dark:bg-neutral-800 dark:text-neutral-100';
+    'bg-accent text-neutral-900 dark:bg-neutral-800 dark:text-neutral-100';
 
 interface AppHeaderProps {
     breadcrumbs?: BreadcrumbItem[];
@@ -70,8 +74,8 @@ export function AppHeader({ breadcrumbs = [] }: AppHeaderProps) {
     const getInitials = useInitials();
     return (
         <>
-            <div className="border-b border-sidebar-border/80">
-                <div className="mx-auto flex h-16 items-center px-4 md:max-w-7xl">
+            <div className="sticky top-0 bg-background">
+                <div className="mx-auto flex h-16 items-center px-4 md:max-w-7xl lg:px-6">
                     {/* Mobile Menu */}
                     <div className="lg:hidden">
                         <Sheet>
@@ -175,9 +179,6 @@ export function AppHeader({ breadcrumbs = [] }: AppHeaderProps) {
                                             )}
                                             {item.title}
                                         </Link>
-                                        {isSameUrl(page.url, item.href) && (
-                                            <div className="absolute bottom-0 left-0 h-0.5 w-full translate-y-px bg-black dark:bg-white"></div>
-                                        )}
                                     </NavigationMenuItem>
                                 ))}
                             </NavigationMenuList>
